@@ -99,7 +99,8 @@ CHARACTER SET utf8 fields terminated by '\t' lines terminated by '\n';"
 Performing crontab timing tasks in Linux system on `pwd` path 
   * Enter the command `crontab -e` and enter `i` into the editing state to add a timing task
   ```LINUX
-  30 08 * * * sh /home/hongyuhuang/liuliang.sh > /home/hongyuhuang/iiuliang/log_`date -d "yesterday" +%Y%m%d`.log 2>&1
+  30 08 * * * sh /home/hongyuhuang/liuliang.sh > 
+  /home/hongyuhuang/iiuliang/log_`date -d "yesterday" +%Y%m%d`.log 2>&1
   ```
 The meaning of the example is:<br>
 Every morning at 8:30, execute the test.sh script in the `/home/hongyuhuang` directory, redirect the output log to the `/home/hongyuhuang/liuliang` directory, and name the file log_yesterday's date.
