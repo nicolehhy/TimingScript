@@ -14,7 +14,7 @@ Because `Tableau` can only synchronize data in mysql, we need to create a script
 #### Create new table in Database (MySQL)
   * Log in to Hadoop at first (take XShell for example) and enter MySQL environment in the Xshell first
   ```Linux
-  mysql -h rm-2ze6406t9hkur76rk.mysql.rds.aliyuncs.com -P 3306 -u inke_db_user -p # the command to enter Mysql
+  mysql -h rm-2ze6406t9hkur76rk.mysql.rds.aliyuncs.com -P 3306 -u inke_db_user -p # enter Mysql
 passward: *******.  # get the right entering password 
   ```
   * Enter the database where you need to create your new table 
@@ -34,7 +34,7 @@ passward: *******.  # get the right entering password
            short_pv int,
            alltime int,
            enter_uv int
-          )engine = innodb DEFAULT CHARSET=utf8;   #Setting Engine and Character Set to Prevent Chinese Scrambling
+          )engine = innodb DEFAULT CHARSET=utf8;   #Prevent Chinese Scrambling
    ```
    
 #### Write a script in Hive
