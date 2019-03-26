@@ -11,7 +11,7 @@ Because `Tableau` can only synchronize data in mysql, we need to create a script
    * Create a timing task using `Crontab -e`
    * Save the timing task(Then we are done at this step)
       
-#### Create new table in Database (MySQL)
+#### 1. Create new table in Database (MySQL)
   * Log in to Hadoop at first (take XShell for example) and enter MySQL environment in the Xshell first
   ```Linux
   mysql -h rm-2ze6406t9hkur76rk.mysql.rds.aliyuncs.com -P 3306 -u inke_db_user -p # enter Mysql
@@ -37,7 +37,7 @@ passward: *******.  # get the right entering password
           )engine = innodb DEFAULT CHARSET=utf8;   #Prevent Chinese Scrambling
    ```
    
-#### Write a script in Hive
+#### 2. Write a script in Hive
 Here, what we need to do is to query the data we need and copy them into the new table`liuliang` we just created in Mysql
   * Exit Mysql
   ```SQL
@@ -95,7 +95,7 @@ CHARACTER SET utf8 fields terminated by '\t' lines terminated by '\n';"
 `mysql -hrm-2ze6406t9hkur76rk.mysql.rds.aliyuncs.com -P3306 -uinke_db_user -p'Nx$X6^soiPi'` this part goes into Mysql database<br>
 `-e "LOAD DATA LOCAL INFILE '/home/huanghongyu/liuliang.txt' INTO TABLE db_inke_pm_strategy.liuliang` this part means I put the query result in `liuliang.txt` into the table `liuliang` in Mysql
 
-#### Create the `Crontab` task (Automatic monitoring system)
+#### 3. Create the `Crontab` task (Automatic monitoring system)
 Performing crontab timing tasks in Linux system on `pwd` path 
   * Enter the command `crontab -e` and enter `i` into the editing state to add a timing task
   ```LINUX
@@ -113,7 +113,7 @@ Every morning at 8:30, execute the test.sh script in the `/home/hongyuhuang` dir
       * If you don't want to save the modified content, enter: `q`
     * Timely update settings completed
  
- #### Check the status of your timing task
+ #### 4. Check the status of your timing task
 You can view daily log files in the `/home/hongyuhuang/iiuliang` directory
   * After landing in hadoop, enter the command `cd ../hongyuhuang/liuliang` 
   enter into the test folder (if you want to return to the previous directory, enter the command `cd..`
