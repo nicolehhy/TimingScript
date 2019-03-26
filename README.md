@@ -57,18 +57,23 @@ Input command: `vi liuliang. sh` (vi command for editing a file). If test. sh al
   * Input the quering code to this `liuliang.sh` script file
  Here I need to query the daily tracking metrics like `Exposure times`, `number of people exposured`, `number of viewers`, `times of people veiwing the page` 
  ```SQL
- date=`date -d "yesterday" +%Y%m%d` # this is for query limits--I just want to extract the information of yesterday
+ date=`date -d "yesterday" +%Y%m%d` # extract the information of yesterday
 
 hive -e"
 
-select b.ymd,a.show_pv,a.show_count,a.show_uv,b.view_uv,b.view_pv,b.short_uv,b.short_pv,b.time,c.enter_uv
+select b.ymd,a.show_pv,a.show_count,a.show_uv,b.view_uv,
+b.view_pv,b.short_uv,b.short_pv,b.time,c.enter_uv
 from
-(select ymd,count(uid) as show_pv,count(distinct token)as show_count,count(distinct uid)as show_uv
+(select ymd,count(uid) as show_pv,count(distinct token)as 
+show_count,count(distinct uid)as show_uv
 from hds.newapplog_seach_live_show
 where ymd=$date and token rlike 'rec_9_2_1_0' and cv rlike  '6.0.0' 
 group by ymd)a
 left join
-(select ymd,count(uid) as view_pv,count(distinct uid)as view_uv,count(distinct case when unix_timestamp(exit_time)-unix_timestamp(enter_time)>60 then uid end) as short_uv,count(case when unix_timestamp(exit_time)-unix_timestamp(enter_time)>60 then uid end) as short_pv,sum(unix_timestamp(exit_time)-unix_timestamp(enter_time)) as time
+(select ymd,count(uid) as view_pv,count(distinct uid)as view_uv,
+count(distinct case when unix_timestamp(exit_time)-unix_timestamp(enter_time)>60 then uid end) as short_uv,
+count(case when unix_timestamp(exit_time)-unix_timestamp(enter_time)>60 then uid end) as short_pv,
+sum(unix_timestamp(exit_time)-unix_timestamp(enter_time)) as time
 from ana.dw_live_view_info_everyday_enter
 where ymd=$date and enter='search_new_rec' and token rlike 'rec_9_2_1_0' and cv rlike  '6.0.0'
 group by ymd)b
@@ -82,7 +87,10 @@ on a.ymd=c.ymd
 
 ;" >liuliang.txt          
 sed -i '/^WARN.*/d' liuliang.txt  # delete the last sentence of output containing 'warning....'
-mysql -hrm-2ze6406t9hkur76rk.mysql.rds.aliyuncs.com -P3306 -uinke_db_user -p'Nx$X6^soiPi' -e "LOAD DATA LOCAL INFILE '/home/huanghongyu/liuliang.txt' INTO TABLE db_inke_pm_strategy.liuliang CHARACTER SET utf8 fields terminated by '\t' lines terminated by '\n';"    
+mysql -hrm-2ze6406t9hkur76rk.mysql.rds.aliyuncs.com -P3306 -uinke_db_user -p'Nx$X6^soiPi' 
+-e "LOAD DATA LOCAL INFILE '/home/huanghongyu/liuliang.txt' 
+INTO TABLE db_inke_pm_strategy.liuliang 
+CHARACTER SET utf8 fields terminated by '\t' lines terminated by '\n';"    
 ```
 `mysql -hrm-2ze6406t9hkur76rk.mysql.rds.aliyuncs.com -P3306 -uinke_db_user -p'Nx$X6^soiPi'` this part goes into Mysql database<br>
 `-e "LOAD DATA LOCAL INFILE '/home/huanghongyu/liuliang.txt' INTO TABLE db_inke_pm_strategy.liuliang` this part means I put the query result in `liuliang.txt` into the table `liuliang` in Mysql
