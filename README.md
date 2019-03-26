@@ -5,6 +5,12 @@ How to establish data monitoring system using LINUX SCRIPT and HIVE
 Because `Tableau` can only synchronize data in mysql, we need to create a script file in `Hadoop` environment, input the results of SQL code we execute in hive into `TXT` file, and import them into tables in `MySQL` environment, so as to synchronize to tableau.
 
 ### Methodology
+   * Create a new table in Mysql
+    * Create a new file in `hdfs` using hive 
+     * Write the quering script `*.sh` in this new file
+      * Create a timing task using `Crontab -e`
+       * Save the timing task(Then we are done at this step)
+      
 #### Create new table in Database (MySQL)
   * Log in to Hadoop at first (take XShell for example) and enter MySQL environment in the Xshell first
   ```Linux
