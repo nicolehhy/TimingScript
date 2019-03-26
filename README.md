@@ -6,10 +6,10 @@ Because `Tableau` can only synchronize data in mysql, we need to create a script
 
 ### Methodology
    * Create a new table in Mysql
-     * Create a new file in `hdfs` using hive 
-        * Write the quering script `*.sh` in this new file
-          * Create a timing task using `Crontab -e`
-            * Save the timing task(Then we are done at this step)
+   * Create a new file in `hdfs` using hive 
+   * Write the quering script `*.sh` in this new file
+   * Create a timing task using `Crontab -e`
+   * Save the timing task(Then we are done at this step)
       
 #### Create new table in Database (MySQL)
   * Log in to Hadoop at first (take XShell for example) and enter MySQL environment in the Xshell first
