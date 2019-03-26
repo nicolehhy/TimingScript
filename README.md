@@ -124,7 +124,8 @@ You can view daily log files in the `/home/hongyuhuang/iiuliang` directory
   sz log_20180524.log
   ```
 Logging is the process of execution of this script. The purpose of saving the log is to retrieve the results of your SQL query from the log on the one hand. On the other hand, if there is a problem with the data on a certain day, you can locate the problem by looking at the log and troubleshooting errors.
-  
+
+####  --> press this link [Crontab usage](http://blog.chinaunix.net/uid-25785357-id-3434344.html) to know more details about `Crontab` timing task 
 
 
 
